@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { VideogamesController } from './controller';
+import { VideogameService } from '../services/videogame.service';
 
 
 export class VideogamesRoutes {
@@ -9,7 +10,8 @@ export class VideogamesRoutes {
 
     const router = Router();
 
-    const controller = new VideogamesController()
+    const videogameService = new VideogameService()
+    const controller = new VideogamesController(videogameService)
 
     router.get('/', controller.getVideogames)
     router.post('/', controller.createVideogame )

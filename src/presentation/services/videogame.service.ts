@@ -81,4 +81,23 @@ export class VideogameService {
     }
   }
 
+  /**
+   * description este metodo elimina un videojuego
+   * @param id id del videojuego que se quiere eliminar
+   * @returns una promesa vacia
+   */
+  async deleteVideogame(id: number){
+    const videogame = await this.findOneVideogameById(id)
+
+    videogame.status = Status.INACTIVE //esto es soft delete
+    //videogame.remove() elimimar el videojuego fisicamente
+
+    try {
+      await videogame.save()
+      return;
+    } catch (error) {
+      throw new Error('Internal Server Error');
+    }
+  }
+
 } 

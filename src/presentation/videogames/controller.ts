@@ -10,7 +10,7 @@ export class VideogamesController {
   createVideogame = (req: Request, res: Response) => {
     const { name, price, description } = req.body;
 
-    this.videogameService.createVideogame({name, price, description})
+    this.videogameService.createVideogame({name, price, description}) // el objeto es videogameData
       .then(videogame => {
         return res.status(201).json(videogame)
       })

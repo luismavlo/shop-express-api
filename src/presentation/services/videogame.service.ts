@@ -10,6 +10,11 @@ export class VideogameService {
   constructor(){}
 
   //TODO: cambiar el tipo de dato any
+  /**
+   * description este metodo crea un videojuego
+   * @param videogameData este es el objeto que contiene los datos del videojuego
+   * @returns retorna un videojuego creado, retorna una instancia del modelo videogame
+   */
   async createVideogame(videogameData: any){
     try {
       const videogame = new Videogame();

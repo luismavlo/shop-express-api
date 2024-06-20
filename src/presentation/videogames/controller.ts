@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { VideogameService } from '../services/videogame.service';
+import { CustomError } from '../../domain';
 
 export class VideogamesController {
 
@@ -15,7 +16,12 @@ export class VideogamesController {
         return res.status(201).json(videogame)
       })
       .catch((error: any) => {
-        return res.status(500).json(error)
+        console.log(error)
+        if( error instanceof CustomError ){
+          return res.status(error.statusCode).json({ message: error.message})
+        }
+
+        return res.status(500).json({ message: 'Something went very wrong! 🧨' })
       })
   }
 
@@ -40,8 +46,12 @@ export class VideogamesController {
         return res.status(200).json(videogame)
       })
       .catch((error: any) => {
-        console.log(error);
-        return res.status(500).json(error)
+        console.log(error)
+        if( error instanceof CustomError ){
+          return res.status(error.statusCode).json({ message: error.message })
+        }
+
+        return res.status(500).json({ message: 'Something went very wrong! 🧨' })
       })
   }
 

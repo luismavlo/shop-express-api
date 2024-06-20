@@ -1,4 +1,5 @@
 import { Videogame } from '../../data';
+import { CustomError } from '../../domain';
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -16,18 +17,15 @@ export class VideogameService {
    * @returns retorna un videojuego creado, retorna una instancia del modelo videogame
    */
   async createVideogame(videogameData: any){
+    const videogame = new Videogame();
+
+    videogame.title = videogameData.name.toLowerCase().trim();
+    videogame.description = videogameData.description.toLowerCase().trim();
+    videogame.price = videogameData.price;
     try {
-      const videogame = new Videogame();
-      videogame.title = videogameData.name.toLowerCase().trim();
-      videogame.description = videogameData.description.toLowerCase().trim();
-      videogame.price = videogameData.price;
-
-      await videogame.save();
-
-      return videogame;
-
+      return await videogame.save();
     } catch (error: any) {
-      console.log(error) //TODO: manejar errores
+      throw CustomError.internalServer("Something went very wrong! 🧨")
     }
   }
 
@@ -39,12 +37,11 @@ export class VideogameService {
         }
       });
     } catch (error: any) {
-      console.log(error)
+      throw CustomError.internalServer("Something went very wrong! 🧨")
     }
   }
 
   async findOneVideogameById(id: number){
-    try {
       const videogame = await Videogame.findOne({
         where: {
           id: id,
@@ -53,14 +50,10 @@ export class VideogameService {
       })
 
       if(!videogame){
-        throw new Error('El videojuego no existe') //TODO: manejar errores
+        throw CustomError.notFound(`videogame with id ${id} not found`)
       }
 
       return videogame;
-    } catch (error: any) {
-      throw new Error('Internal Server Error');
-      console.log(error)
-    }
   }
 
   async updateVideogame(videogameData: any, id: number){
@@ -72,12 +65,9 @@ export class VideogameService {
     videogame.price = videogameData.price;
 
     try {
-      await videogame.save()
-
-      return videogame;
+      return await videogame.save()
     } catch (error) {
-      console.log(error)
-      throw new Error('Internal Server Error');
+      throw CustomError.internalServer("Something went very wrong! 🧨")
     }
   }
 
@@ -96,7 +86,7 @@ export class VideogameService {
       await videogame.save()
       return;
     } catch (error) {
-      throw new Error('Internal Server Error');
+      throw CustomError.internalServer("Something went very wrong! 🧨")
     }
   }
 

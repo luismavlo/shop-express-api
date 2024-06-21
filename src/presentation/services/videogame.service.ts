@@ -1,5 +1,5 @@
 import { Videogame } from '../../data';
-import { CreateVideogameDto, CustomError } from '../../domain';
+import { CreateVideogameDto, CustomError, UpdateVideogameDto } from '../../domain';
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -72,12 +72,11 @@ export class VideogameService {
    * @returns retorna una promesa del videojuego actualizado, retorna una instancia del modelo videogame
    * @erros not found videogame, internal server
    */
-  async updateVideogame(videogameData: any, id: number){
+  async updateVideogame(videogameData: UpdateVideogameDto, id: number){
 
     const videogame = await this.findOneVideogameById(id);
 
     videogame.title = videogameData.name.toLowerCase().trim();
-    videogame.description = videogameData.description.toLowerCase().trim();
     videogame.price = videogameData.price;
 
     try {

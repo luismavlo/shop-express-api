@@ -7,7 +7,11 @@ export class VideogamesController {
   constructor(
     public readonly videogameService: VideogameService
   ) { }
-
+  /**
+   * @description este metodo devuelve un error al cliente, se debe usar en todos los catch
+   * @param error error que se quiere devolver
+   * @param res response objeto de express Response
+   */
   private handleError = (error: unknown, res: Response) => {
     console.log(error)
     if (error instanceof CustomError) {
@@ -50,7 +54,7 @@ export class VideogamesController {
 
     this.videogameService.updateVideogame({ name, price, description }, +id)
       .then(videogame => res.status(200).json(videogame))
-      .catch((error: unknown) =>  res.status(500).json(error))
+      .catch((error: unknown) => res.status(500).json(error))
   }
 
   deleteVideogameById = (req: Request, res: Response) => {

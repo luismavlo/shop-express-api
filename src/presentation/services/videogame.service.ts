@@ -15,6 +15,7 @@ export class VideogameService {
    * description este metodo crea un videojuego
    * @param videogameData este es el objeto que contiene los datos del videojuego
    * @returns retorna un videojuego creado, retorna una instancia del modelo videogame
+   * @erros internal server
    */
   async createVideogame(videogameData: any){
     const videogame = new Videogame();
@@ -28,7 +29,11 @@ export class VideogameService {
       throw CustomError.internalServer("Something went very wrong! 🧨")
     }
   }
-
+  /**
+   * @description este metodo busca todos los videojuegos activos
+   * @returns retorna una promesa con todos los videojuegos, retorna una instancia del modelo videogame
+   * @erros internal server
+   */
   async findAllVideogames(){
     try {
       return await Videogame.find({
@@ -40,7 +45,12 @@ export class VideogameService {
       throw CustomError.internalServer("Something went very wrong! 🧨")
     }
   }
-
+  /**
+   * @description este metodo devuelve una promesa con el videojuego por id
+   * @param id id de tipo number del videojuego que se quiere obtener
+   * @returns retorna una promesa del videojuego, retorna una instancia del modelo videogame
+   * @erros not found videogame, internal server
+   */
   async findOneVideogameById(id: number){
       const videogame = await Videogame.findOne({
         where: {
@@ -56,6 +66,13 @@ export class VideogameService {
       return videogame;
   }
 
+  /**
+   * @description este metodo actualiza un videojuego
+   * @param videogameData este es el objeto que contiene los datos del videojuego
+   * @param id id de tipo number del videojuego que se quiere actualizar
+   * @returns retorna una promesa del videojuego actualizado, retorna una instancia del modelo videogame
+   * @erros not found videogame, internal server
+   */
   async updateVideogame(videogameData: any, id: number){
 
     const videogame = await this.findOneVideogameById(id);
@@ -72,9 +89,10 @@ export class VideogameService {
   }
 
   /**
-   * description este metodo elimina un videojuego
+   * @description este metodo elimina un videojuego
    * @param id id del videojuego que se quiere eliminar
    * @returns una promesa vacia
+   * @erros not found videogame, internal server
    */
   async deleteVideogame(id: number){
     const videogame = await this.findOneVideogameById(id)

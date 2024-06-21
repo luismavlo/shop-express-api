@@ -21,6 +21,7 @@ export class Server {
     //* Middlewares
     this.app.use( express.json() ); //* preparar la aplicacion para recibir datos en formato JSON
     this.app.use( express.urlencoded({ extended: true })); //* preparar la aplicacion para recibir datos en formato urlencoded
+    //TODO: agregar el middleware para las FAMOSAS CORS
 
     this.app.use( this.routes )
 

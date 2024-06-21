@@ -1,5 +1,5 @@
 import { Videogame } from '../../data';
-import { CustomError } from '../../domain';
+import { CreateVideogameDto, CustomError } from '../../domain';
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -10,14 +10,13 @@ export class VideogameService {
 
   constructor(){}
 
-  //TODO: cambiar el tipo de dato any
   /**
    * description este metodo crea un videojuego
    * @param videogameData este es el objeto que contiene los datos del videojuego
    * @returns retorna un videojuego creado, retorna una instancia del modelo videogame
    * @erros internal server
    */
-  async createVideogame(videogameData: any){
+  async createVideogame(videogameData: CreateVideogameDto){
     const videogame = new Videogame();
 
     videogame.title = videogameData.name.toLowerCase().trim();

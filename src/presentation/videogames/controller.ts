@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { VideogameService } from '../services/videogame.service';
-import { CustomError } from '../../domain';
+import { CreateVideogameDto, CustomError } from '../../domain';
 
 export class VideogamesController {
 
@@ -21,9 +21,10 @@ export class VideogamesController {
   }
 
   createVideogame = (req: Request, res: Response) => {
-    const { name, price, description } = req.body;
+    const [ error, createVideogameDto ] = CreateVideogameDto.create(req.body);
+    if( error ) return res.status(422).json({ message: error })
 
-    this.videogameService.createVideogame({ name, price, description }) 
+    this.videogameService.createVideogame(createVideogameDto!) 
       .then(videogame => res.status(201).json(videogame))
       .catch((error: unknown) => this.handleError(error, res))
   }

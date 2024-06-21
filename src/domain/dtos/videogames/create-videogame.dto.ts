@@ -14,8 +14,6 @@ export class CreateVideogameDto {
    * @returns un arreglo con el mensaje de error y el objeto de tipo CreateVideogameDto
    *   
   */
-
- 
   static create( object: { [key : string] : any } ): [string?, CreateVideogameDto?] {
     const { name, price, description } = object;
 

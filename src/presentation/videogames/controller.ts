@@ -6,23 +6,22 @@ export class VideogamesController {
 
   constructor(
     public readonly videogameService: VideogameService
-  ){}
+  ) { }
+
+  private handleError = (error: unknown, res: Response) => {
+    console.log(error)
+    if (error instanceof CustomError) {
+      return res.status(error.statusCode).json({ message: error.message })
+    }
+    return res.status(500).json({ message: 'Something went very wrong! 🧨' })
+  }
 
   createVideogame = (req: Request, res: Response) => {
     const { name, price, description } = req.body;
 
-    this.videogameService.createVideogame({name, price, description}) // el objeto es videogameData
-      .then(videogame => {
-        return res.status(201).json(videogame)
-      })
-      .catch((error: any) => {
-        console.log(error)
-        if( error instanceof CustomError ){
-          return res.status(error.statusCode).json({ message: error.message})
-        }
-
-        return res.status(500).json({ message: 'Something went very wrong! 🧨' })
-      })
+    this.videogameService.createVideogame({ name, price, description }) 
+      .then(videogame => res.status(201).json(videogame))
+      .catch((error: unknown) => this.handleError(error, res))
   }
 
   getVideogames = (req: Request, res: Response) => {
@@ -36,8 +35,8 @@ export class VideogamesController {
   }
 
   getVideogameById = (req: Request, res: Response) => {
-    const { id } = req.params; 
-    if(isNaN(+id)){
+    const { id } = req.params;
+    if (isNaN(+id)) {
       return res.status(400).json({ message: 'El id debe ser un numero' })
     }
 
@@ -47,7 +46,7 @@ export class VideogamesController {
       })
       .catch((error: any) => {
         console.log(error)
-        if( error instanceof CustomError ){
+        if (error instanceof CustomError) {
           return res.status(error.statusCode).json({ message: error.message })
         }
 
@@ -59,7 +58,7 @@ export class VideogamesController {
     const { id } = req.params;
     const { name, price, description } = req.body;
 
-    if(isNaN(+id)){
+    if (isNaN(+id)) {
       return res.status(400).json({ message: 'El id debe ser un numero' })
     }
 
@@ -75,7 +74,7 @@ export class VideogamesController {
 
   deleteVideogameById = (req: Request, res: Response) => {
     const { id } = req.params;
-    if(isNaN(+id)){
+    if (isNaN(+id)) {
       return res.status(400).json({ message: 'El id debe ser un numero' })
     }
 

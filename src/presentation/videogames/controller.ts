@@ -26,12 +26,8 @@ export class VideogamesController {
 
   getVideogames = (req: Request, res: Response) => {
     this.videogameService.findAllVideogames()
-      .then(videogames => {
-        return res.status(200).json(videogames)
-      })
-      .catch((error: any) => {
-        return res.status(500).json(error)
-      })
+      .then(videogames => res.status(200).json(videogames))
+      .catch((error: unknown) => this.handleError(error, res))
   }
 
   getVideogameById = (req: Request, res: Response) => {
@@ -39,19 +35,9 @@ export class VideogamesController {
     if (isNaN(+id)) {
       return res.status(400).json({ message: 'El id debe ser un numero' })
     }
-
     this.videogameService.findOneVideogameById(+id)
-      .then(videogame => {
-        return res.status(200).json(videogame)
-      })
-      .catch((error: any) => {
-        console.log(error)
-        if (error instanceof CustomError) {
-          return res.status(error.statusCode).json({ message: error.message })
-        }
-
-        return res.status(500).json({ message: 'Something went very wrong! 🧨' })
-      })
+      .then(videogame => res.status(200).json(videogame))
+      .catch((error: unknown) => this.handleError(error, res))
   }
 
   updateVideogameById = (req: Request, res: Response) => {
@@ -63,13 +49,8 @@ export class VideogamesController {
     }
 
     this.videogameService.updateVideogame({ name, price, description }, +id)
-      .then(videogame => {
-        return res.status(200).json(videogame)
-      })
-      .catch((error: any) => {
-        console.log(error);
-        return res.status(500).json(error)
-      })
+      .then(videogame => res.status(200).json(videogame))
+      .catch((error: unknown) =>  res.status(500).json(error))
   }
 
   deleteVideogameById = (req: Request, res: Response) => {
@@ -79,12 +60,8 @@ export class VideogamesController {
     }
 
     this.videogameService.deleteVideogame(+id)
-      .then(() => {
-        return res.status(204).json()
-      })
-      .catch((error: any) => {
-        return res.status(500).json(error)
-      })
+      .then(() => res.status(204).json())
+      .catch((error: unknown) => res.status(500).json(error))
   }
 
 }

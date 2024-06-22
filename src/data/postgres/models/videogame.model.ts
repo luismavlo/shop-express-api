@@ -37,6 +37,7 @@ export class Videogame extends BaseEntity {
   price: number;
 
   @Column({
+    type: 'enum',
     nullable: false,
     enum: Status,
     default: Status.ACTIVE

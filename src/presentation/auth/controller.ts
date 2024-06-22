@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 import { CustomError } from '../../domain';
+import { AuthService } from '../services/auth.service';
 
 export class AuthController {
 
   constructor(
-    //TODO: Do Dependency injection if is required
+    private readonly authService: AuthService
   ){}
 
   private handleError = (error: unknown, res: Response) => {

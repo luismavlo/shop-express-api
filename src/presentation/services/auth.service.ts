@@ -2,6 +2,7 @@ import { RegisterUserDto } from '../../domain/dtos/auth/register-user.dto';
 import {User} from "../../data/postgres/models/user.model";
 import {CustomError} from "../../domain";
 import {bcryptAdapter} from "../../config";
+import {JwtAdapter} from "../../config/jwt.adapter";
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -34,7 +35,15 @@ export class AuthService {
     user.password = bcryptAdapter.hash(registerUserDto.password)
 
     try {
-      return await user.save()
+      await user.save()
+      const token = await JwtAdapter.generateToken({ id: user.id } )
+      if( !token ) throw CustomError.internalServer('Error while creating JWT')
+
+      return {
+        token,
+        user,
+      }
+
     } catch ( error: any ) {
       throw CustomError.internalServer(error)
     }

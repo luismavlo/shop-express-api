@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5e971d8-6b79-4552-ad54-b0160b0c9c60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/config/bcrypt.adapter.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config/jwt.adapter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/env.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/postgres/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/postgres/models/user.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/presentation/auth/controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/auth/controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/presentation/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/presentation/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/services/auth.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +63,7 @@
       <updated>1718245234097</updated>
       <workItem from="1718245235185" duration="1987000" />
       <workItem from="1718363788942" duration="22000" />
-      <workItem from="1719277071402" duration="3721000" />
+      <workItem from="1719277071402" duration="7779000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,13 @@
 
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BaseEntity, BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity, InsertEvent,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from 'typeorm';
+import {bcryptAdapter} from "../../../config";
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -13,6 +21,12 @@ enum Role {
 
 @Entity()
 export class User extends BaseEntity {
+
+  /*constructor(password: string) {
+    super()
+    this.password = password;
+  }*/
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -65,4 +79,10 @@ export class User extends BaseEntity {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  /*@BeforeInsert()
+  encryptPassword(){
+    console.log('->',this.password)
+    //this.password = bcryptAdapter.hash()
+  }*/
 }

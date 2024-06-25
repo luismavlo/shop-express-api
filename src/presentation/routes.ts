@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { Request, Response } from 'express';
 import { VideogamesRoutes } from './videogames/routes';
 import { AuthRoutes } from './auth/routes';
 

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CustomError } from '../../domain';
 import { AuthService } from '../services/auth.service';
+import { RegisterUserDto } from "../../domain/dtos/auth/register-user.dto";
 
 export class AuthController {
 
@@ -18,8 +19,12 @@ export class AuthController {
   }
 
   register = async (req: Request, res: Response) => {
-    //TODO: implementar el metodo
-    return res.status(200).json({ message: 'Hello World!' })
+    const [ error, registerUserDto ] = RegisterUserDto.create(req.body);
+    if(error) return res.status(422).json({ message: error });
+
+    this.authService.register(registerUserDto!)
+        .then(data => res.status(200).json(data))
+        .catch(error => this.handleError(error, res))
   }
 
   login = async (req: Request, res: Response) => {

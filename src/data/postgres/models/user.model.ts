@@ -34,6 +34,7 @@ export class User extends BaseEntity {
     type: 'varchar',
     length: 100,
     nullable: false,
+    unique: true
   })
   email: string;
 

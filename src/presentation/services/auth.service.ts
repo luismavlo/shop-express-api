@@ -3,6 +3,7 @@ import {User} from "../../data/postgres/models/user.model";
 import {CustomError} from "../../domain";
 import {bcryptAdapter} from "../../config";
 import {JwtAdapter} from "../../config/jwt.adapter";
+import {EmailService} from "./email.service";
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -16,7 +17,9 @@ enum Role {
 
 export class AuthService {
 
-  constructor(){}
+  constructor(
+      private readonly emailService: EmailService
+  ){}
 
   public async register( registerUserDto: RegisterUserDto ){
     const existUser = await User.findOne({

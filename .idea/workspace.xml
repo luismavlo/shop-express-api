@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5e971d8-6b79-4552-ad54-b0160b0c9c60" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/presentation/services/email.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/env.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/jwt.adapter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/jwt.adapter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/postgres/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/postgres/models/user.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/presentation/auth/controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/auth/controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/presentation/auth/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/auth/routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/presentation/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/presentation/services/email.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentation/services/email.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +49,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "settings.editor.selected.configurable": "inlay.hints",
     "ts.external.directory.path": "D:\\ACADEMLO\\GENERACIONES\\GEN-37\\shop-videogames\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }

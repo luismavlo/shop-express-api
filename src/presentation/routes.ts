@@ -9,8 +9,10 @@ export class AppRoutes {
 
     const router = Router(); 
 
-    router.use('/api/v1/videogames', VideogamesRoutes.routes)
+
     router.use('/api/v1/auth', AuthRoutes.routes)
+    router.use('/api/v1/videogames', VideogamesRoutes.routes)
+    //router.use('/api/v1/purchases', PurchasesRoutes.routes)
     
 
     //router.use()

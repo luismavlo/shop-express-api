@@ -3,6 +3,7 @@ import { AuthController } from './controller';
 import { AuthService } from '../services/auth.service';
 import {EmailService} from "../services/email.service";
 import {envs} from "../../config";
+import { AuthMiddleware } from '../middlewares/auth.middleware';
 
 
 export class AuthRoutes {
@@ -24,6 +25,8 @@ export class AuthRoutes {
     router.post('/register', controller.register)
 
     router.get('/validate-email/:token', controller.validateEmail)
+
+    router.get('/profile', AuthMiddleware.protect ,controller.getProfile)
 
     return router;
   }

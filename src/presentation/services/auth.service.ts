@@ -103,7 +103,8 @@ export class AuthService {
     const user = await User.findOne({
       where: {
         email: loginUserDTO.email,
-        status: Status.ACTIVE
+        status: Status.ACTIVE,
+        emailValidated: true
       }
     })
     if( !user ) throw CustomError.unAuthorized("Invalid credentials")
@@ -124,6 +125,19 @@ export class AuthService {
         role: user.role,
       }
     }
+  }
+
+  public async getProfile(id: number){
+    const user = await User.findOne({
+      where: {
+        id: id,
+        status: Status.ACTIVE
+      }
+    })
+
+    if(!user) throw CustomError.notFound('User not found')
+
+    return user;
   }
 
 }

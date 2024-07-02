@@ -45,4 +45,12 @@ export class AuthController {
         .catch(error => this.handleError(error, res))
   }
 
+  getProfile = (req: Request, res: Response) => {
+    const { id } = req.body.sessionUser;
+
+    this.authService.getProfile(+id)
+        .then(data => res.status(200).json(data))
+        .catch(error => this.handleError(error, res))
+  }
+
 }

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { CustomError } from '../../domain';
 import { AuthService } from '../services/auth.service';
 import { RegisterUserDto } from "../../domain/dtos/auth/register-user.dto";
+import { LoginUserDTO } from '../../domain/dtos/auth/login-user.dto';
 
 export class AuthController {
 
@@ -28,8 +29,12 @@ export class AuthController {
   }
 
   login = async (req: Request, res: Response) => {
-    //TODO: implementar el metodo
-    return res.status(200).json({ message: 'Hello World!' })
+    const [ error, loginUserDto ] = LoginUserDTO.create(req.body);
+    if(error) return res.status(422).json({ message: error });
+
+    this.authService.login(loginUserDto!)
+        .then(data => res.status(200).json(data))
+        .catch(error => this.handleError(error, res))
   }
 
   validateEmail = (req: Request, res: Response) => {

@@ -41,7 +41,7 @@ export class EmailService {
         to: to,
         subject: subject,
         html: htmlBody,
-        attachments: attachments
+        //attachments: attachments
       })
 
       return true;

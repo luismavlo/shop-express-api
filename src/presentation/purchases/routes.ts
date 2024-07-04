@@ -5,8 +5,12 @@ import { VideogameService } from '../services/videogame.service';
 import { AuthService } from '../services/auth.service';
 import { EmailService } from '../services/email.service';
 import { envs } from '../../config';
+import { AuthMiddleware } from '../middlewares/auth.middleware';
 
-
+enum Role {
+  ADMIN = 'ADMIN',
+  CLIENT = 'CLIENT'
+}
 
 export class PurchasesRoutes {
 
@@ -27,10 +31,12 @@ export class PurchasesRoutes {
     const purchaseService = new PurchaseService(authService, videogameService)
     const controller = new PurchaseController(purchaseService)
 
-    router.get('/', controller.getPurchases)
-    router.post('/', controller.createVideogame )
-    router.get('/:id', controller.getVideogameById )
-    router.delete('/:id', controller.deleteVideogameById )
+    router.use(AuthMiddleware.protect)
+
+    router.get('/', AuthMiddleware.restrictTo(Role.ADMIN) ,controller.getPurchases)
+    router.post('/', controller.createPurchase )
+    router.get('/:id', controller.getPurchaseById )
+    router.delete('/:id', controller.deletePurchaseById )
 
     return router;
   }

@@ -86,9 +86,8 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  /*@BeforeInsert()
+  @BeforeInsert()
   encryptPassword(){
-    console.log('->',this.password)
-    //this.password = bcryptAdapter.hash()
-  }*/
+    this.password = bcryptAdapter.hash(this.password)
+  }
 }

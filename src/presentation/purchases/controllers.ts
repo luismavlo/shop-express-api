@@ -29,7 +29,7 @@ export class PurchaseController {
         .catch(error => this.handleError(error, res))
   }
 
-  createVideogame = (req: Request, res: Response) => {
+  createPurchase = (req: Request, res: Response) => {
     const [ error, createPurchaseDTO ] = CreatePurchaseDTO.create(req.body);
     if( error ) return res.status(422).json({ message: error })
 
@@ -38,7 +38,7 @@ export class PurchaseController {
         .catch(error => this.handleError(error, res))
   }
 
-  getVideogameById = (req: Request, res: Response) => {
+  getPurchaseById = (req: Request, res: Response) => {
     const { id } = req.params;
     if (isNaN(+id)) return res.status(400).json({ message: 'El id debe ser un numero' })
 
@@ -47,11 +47,12 @@ export class PurchaseController {
         .catch(error => this.handleError(error, res))
   }
 
-  deleteVideogameById = (req: Request, res: Response) => {
+  deletePurchaseById = (req: Request, res: Response) => {
+    const userId = req.body.sessionUser.id;
     const { id } = req.params;
     if (isNaN(+id)) return res.status(400).json({ message: 'El id debe ser un numero' })
 
-    this.purchaseService.deletePurchase(+id)
+    this.purchaseService.deletePurchase(+id, userId)
         .then(() => res.status(204).json(null))
         .catch(error => this.handleError(error, res))
   }

@@ -1,3 +1,4 @@
+import { protectAccountOwner } from '../../config/validate-owner';
 import { Purchase } from '../../data/postgres/models/purchases.model';
 import { CustomError } from '../../domain';
 import { CreatePurchaseDTO } from '../../domain/dtos/purchases/create-purchase.dto';
@@ -61,8 +62,11 @@ export class PurchaseService {
     return purchase;
   }
 
-  async deletePurchase(id: number){
+  async deletePurchase(id: number, userSessionId: number){
     const purchase = await this.getPurchase(id)
+
+    const isOwner = protectAccountOwner(purchase.user_id, userSessionId)
+    if( !isOwner ) throw CustomError.unAuthorized('You are not the owner of this purchase')
 
     purchase.status = Status.INACTIVE 
     try {

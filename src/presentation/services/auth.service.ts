@@ -36,7 +36,7 @@ export class AuthService {
     user.first_name = registerUserDto.firstName;
     user.surname = registerUserDto.surname;
     user.email = registerUserDto.email;
-    user.password = bcryptAdapter.hash(registerUserDto.password)
+    user.password = registerUserDto.password
 
     try {
       await user.save()

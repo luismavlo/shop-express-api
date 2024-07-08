@@ -23,11 +23,11 @@ export class PurchaseService {
     const videogamePromise = this.videogameService.findOneVideogameById(createPurchaseDTO.videogameId)
     const userPromise = this.authService.getProfile(createPurchaseDTO.userId)
 
-    await Promise.all([videogamePromise, userPromise])
+    const [videogame, user] = await Promise.all([videogamePromise, userPromise])
 
     const purchase = new Purchase();
-    purchase.user_id = createPurchaseDTO.userId;
-    purchase.videogame_id = createPurchaseDTO.videogameId;
+    purchase.user = user;
+    purchase.videogame = videogame;
 
     try {
       return await purchase.save();
@@ -54,6 +54,23 @@ export class PurchaseService {
       where: {
         id: id,
         status: Status.ACTIVE
+      },
+      relations: ['user', 'videogame'],
+      select: {
+        user: {
+          id: true,
+          first_name: true,
+          surname: true,
+          email: true,
+          role: true
+        },
+        videogame: {
+          id: true,
+          title: true,
+          description: true,
+          image: true,
+          price: true,
+        }
       }
     })
 
@@ -65,7 +82,7 @@ export class PurchaseService {
   async deletePurchase(id: number, userSessionId: number){
     const purchase = await this.getPurchase(id)
 
-    const isOwner = protectAccountOwner(purchase.user_id, userSessionId)
+    const isOwner = protectAccountOwner(purchase.user.id, userSessionId)
     if( !isOwner ) throw CustomError.unAuthorized('You are not the owner of this purchase')
 
     purchase.status = Status.INACTIVE 

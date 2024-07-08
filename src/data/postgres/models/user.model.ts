@@ -4,10 +4,12 @@ import {
   Column,
   CreateDateColumn,
   Entity, InsertEvent,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 import {bcryptAdapter} from "../../../config";
+import { Purchase } from './purchases.model';
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -79,6 +81,8 @@ export class User extends BaseEntity {
   })
   status: Status;
 
+  @OneToMany(() => Purchase, (purchase) => purchase.user)
+  purchases: Purchase[];
 
   @CreateDateColumn()
   created_at: Date;

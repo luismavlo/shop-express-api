@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Purchase } from './purchases.model';
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -43,6 +44,9 @@ export class Videogame extends BaseEntity {
     default: Status.ACTIVE
   })
   status: Status;
+
+  @OneToMany(() => Purchase, (purchase) => purchase.videogame)
+  purchases: Purchase[];
 
   @CreateDateColumn()
   created_at: Date;

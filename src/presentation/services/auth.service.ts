@@ -5,6 +5,8 @@ import {bcryptAdapter, envs} from "../../config";
 import {JwtAdapter} from "../../config/jwt.adapter";
 import {EmailService} from "./email.service";
 import { LoginUserDTO } from '../../domain/dtos/auth/login-user.dto';
+import { DataSource } from 'typeorm';
+import { PostgresDatabase } from '../../data';
 
 enum Status {
   ACTIVE = 'ACTIVE',

@@ -3,13 +3,13 @@ import { AppRoutes } from './presentation/routes';
 import { Server } from './presentation/server';
 import { PostgresDatabase } from './data';
 import {envs} from "./config";
+import { DataSource } from 'typeorm';
 
 
 
 (async() => {
   main();
 })();
-
 
 async function main(){
 
@@ -24,6 +24,7 @@ async function main(){
   })
 
   await postgres.connect()
+
 
   const server = new Server({ 
     port: envs.PORT,

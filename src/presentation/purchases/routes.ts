@@ -33,7 +33,7 @@ export class PurchasesRoutes {
 
     router.use(AuthMiddleware.protect)
 
-    router.get('/', AuthMiddleware.restrictTo(Role.ADMIN) ,controller.getPurchases)
+    router.get('/' ,controller.getPurchases)
     router.post('/', controller.createPurchase )
     router.get('/:id', controller.getPurchaseById )
     router.delete('/:id', controller.deletePurchaseById )

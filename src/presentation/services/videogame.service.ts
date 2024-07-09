@@ -38,8 +38,9 @@ export class VideogameService {
       return await Videogame.find({
         where: {
           status: Status.ACTIVE
-        }
+        },
       });
+      
     } catch (error: any) {
       throw CustomError.internalServer("Something went very wrong! 🧨")
     }

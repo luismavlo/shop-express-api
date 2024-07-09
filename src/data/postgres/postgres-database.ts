@@ -13,7 +13,7 @@ interface Options {
 
 export class PostgresDatabase {
 
-  private datasource: DataSource;
+  public datasource: DataSource;
 
   constructor(options: Options) {
     this.datasource = new DataSource({
@@ -39,5 +39,7 @@ export class PostgresDatabase {
       console.log(error)
     }
   }
+
+  
 
 }

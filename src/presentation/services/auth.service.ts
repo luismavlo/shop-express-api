@@ -129,10 +129,24 @@ export class AuthService {
 
   public async getProfile(id: number){
     const user = await User.findOne({
+      select: {
+        purchases: {
+          id: true,
+          status: true,
+          videogame: {
+            id: true,
+            title: true,
+            description: true,
+            price: true,
+            status: true
+          }
+        }
+      },
       where: {
         id: id,
         status: Status.ACTIVE
-      }
+      },
+      relations: ['purchases', 'purchases.videogame'],
     })
 
     if(!user) throw CustomError.notFound('User not found')

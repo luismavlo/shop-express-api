@@ -1,6 +1,8 @@
 
 
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { User } from './user.model';
+import { Videogame } from './videogame.model';
 
 
 enum Status {
@@ -13,23 +15,17 @@ export class Purchase extends BaseEntity {
   id: number;
 
   @Column({
-    nullable: false,
-    type: 'int'
-  })
-  user_id: number;
-  
-  @Column({
-    nullable: false,
-    type: 'int'
-  })
-  videogame_id: number;
-
-  @Column({
     type: 'enum',
     enum: Status,
     default: Status.ACTIVE
   })
   status: Status;
+
+  @ManyToOne(() => User, (user) => user.purchases)
+  user: User;
+
+  @ManyToOne(() => Videogame, (videogame) => videogame.purchases)
+  videogame: Videogame;
 
   @CreateDateColumn()
   created_at: Date;

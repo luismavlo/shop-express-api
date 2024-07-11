@@ -1,3 +1,4 @@
+import { UploadFile } from '../../config/upload-files-cloud.adapter';
 import { Videogame } from '../../data';
 import { CreateVideogameDto, CustomError, UpdateVideogameDto } from '../../domain';
 
@@ -8,7 +9,7 @@ enum Status {
 
 export class VideogameService {
 
-  constructor(){}
+  constructor() { }
 
   /**
    * description este metodo crea un videojuego
@@ -16,12 +17,20 @@ export class VideogameService {
    * @returns retorna un videojuego creado, retorna una instancia del modelo videogame
    * @erros internal server
    */
-  async createVideogame(videogameData: CreateVideogameDto){
+  async createVideogame (
+    videogameData: CreateVideogameDto, 
+    files: Express.Multer.File[] | undefined ) {
     const videogame = new Videogame();
 
     videogame.title = videogameData.name.toLowerCase().trim();
     videogame.description = videogameData.description.toLowerCase().trim();
     videogame.price = videogameData.price;
+
+    if( files && files.length > 0){
+      const imgs = await UploadFile.uploadMultipleFilesToFirebase('videogames', files)
+      videogame.imgs = imgs;
+    }
+
     try {
       return await videogame.save();
     } catch (error: any) {
@@ -33,14 +42,14 @@ export class VideogameService {
    * @returns retorna una promesa con todos los videojuegos, retorna una instancia del modelo videogame
    * @erros internal server
    */
-  async findAllVideogames(){
+  async findAllVideogames () {
     try {
       return await Videogame.find({
         where: {
           status: Status.ACTIVE
         },
       });
-      
+
     } catch (error: any) {
       throw CustomError.internalServer("Something went very wrong! 🧨")
     }
@@ -51,19 +60,19 @@ export class VideogameService {
    * @returns retorna una promesa del videojuego, retorna una instancia del modelo videogame
    * @erros not found videogame, internal server
    */
-  async findOneVideogameById(id: number){
-      const videogame = await Videogame.findOne({
-        where: {
-          id: id,
-          status: Status.ACTIVE
-        }
-      })
-
-      if(!videogame){
-        throw CustomError.notFound(`videogame with id ${id} not found`)
+  async findOneVideogameById (id: number) {
+    const videogame = await Videogame.findOne({
+      where: {
+        id: id,
+        status: Status.ACTIVE
       }
+    })
 
-      return videogame;
+    if (!videogame) {
+      throw CustomError.notFound(`videogame with id ${id} not found`)
+    }
+
+    return videogame;
   }
 
   /**
@@ -73,7 +82,7 @@ export class VideogameService {
    * @returns retorna una promesa del videojuego actualizado, retorna una instancia del modelo videogame
    * @erros not found videogame, internal server
    */
-  async updateVideogame(videogameData: UpdateVideogameDto, id: number){
+  async updateVideogame (videogameData: UpdateVideogameDto, id: number) {
 
     const videogame = await this.findOneVideogameById(id);
 
@@ -93,7 +102,7 @@ export class VideogameService {
    * @returns una promesa vacia
    * @erros not found videogame, internal server
    */
-  async deleteVideogame(id: number){
+  async deleteVideogame (id: number) {
     const videogame = await this.findOneVideogameById(id)
 
     videogame.status = Status.INACTIVE //esto es soft delete

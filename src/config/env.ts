@@ -14,5 +14,10 @@ export const envs = {
   MAILER_EMAIL: get('MAILER_EMAIL').required().asString(),
   MAILER_SECRET_KEY: get('MAILER_SECRET_KEY').required().asString(),
   WEBSERVICE_URL: get('WEBSERVICE_URL').required().asString(),
-  SEND_EMAIL: get('SEND_EMAIL').required().asBool()
+  SEND_EMAIL: get('SEND_EMAIL').required().asBool(),
+
+  FIREBASE_API_KEY: get('FIREBASE_API_KEY').required().asString(),
+  FIREBASE_PROJECT_ID: get('FIREBASE_PROJECT_ID').required().asString(),
+  FIREBASE_STORAGE_BUCKET: get('FIREBASE_STORAGE_BUCKET').required().asString(),
+  FIREBASE_APP_ID: get('FIREBASE_APP_ID').required().asString(),
 }

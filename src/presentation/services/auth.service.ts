@@ -7,6 +7,8 @@ import {EmailService} from "./email.service";
 import { LoginUserDTO } from '../../domain/dtos/auth/login-user.dto';
 import { DataSource } from 'typeorm';
 import { PostgresDatabase } from '../../data';
+import { generateUUID } from '../../config/genereta-uuid.adapter';
+import { UploadFile } from '../../config/upload-files-cloud.adapter';
 
 enum Status {
   ACTIVE = 'ACTIVE',
@@ -32,6 +34,7 @@ export class AuthService {
       }
     })
 
+    
     if( existUser ) throw CustomError.badRequest('Email already exist')
 
     const user = new User()
@@ -39,6 +42,13 @@ export class AuthService {
     user.surname = registerUserDto.surname;
     user.email = registerUserDto.email;
     user.password = registerUserDto.password
+
+    if( file?.originalname && file.originalname.length > 0){
+      const path = `users/${ generateUUID() }-${ file.originalname }`;
+      const photoUrl = await UploadFile.uploadToCloud(path, file.buffer)
+      user.avatar = photoUrl;
+    }
+    
 
     try {
       await user.save()

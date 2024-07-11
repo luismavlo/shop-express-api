@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { VideogamesController } from './controller';
 import { VideogameService } from '../services/videogame.service';
 import { AuthMiddleware } from '../middlewares/auth.middleware';
+import { uploadArr } from '../../config/upload-files.adapter';
 
 
 export class VideogamesRoutes {
@@ -17,7 +18,7 @@ export class VideogamesRoutes {
     
     router.use(AuthMiddleware.protect)
     router.get('/', controller.getVideogames)
-    router.post('/', controller.createVideogame )
+    router.post('/', uploadArr('imgs', 5) ,controller.createVideogame )
     router.get('/:id', controller.getVideogameById )
     router.patch('/:id', controller.updateVideogameById )
     router.delete('/:id', controller.deleteVideogameById )

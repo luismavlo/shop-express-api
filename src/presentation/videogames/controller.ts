@@ -24,7 +24,7 @@ export class VideogamesController {
     const [ error, createVideogameDto ] = CreateVideogameDto.create(req.body);
     if( error ) return res.status(422).json({ message: error })
 
-    this.videogameService.createVideogame(createVideogameDto!) 
+    this.videogameService.createVideogame(createVideogameDto!, req.files as Express.Multer.File[])
       .then(videogame => res.status(201).json(videogame))
       .catch((error: unknown) => this.handleError(error, res))
   }

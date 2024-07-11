@@ -38,6 +38,13 @@ export class Videogame extends BaseEntity {
   price: number;
 
   @Column({
+    type: 'varchar', 
+    array:true, 
+    nullable: true
+  })
+  imgs:string[]
+
+  @Column({
     type: 'enum',
     nullable: false,
     enum: Status,

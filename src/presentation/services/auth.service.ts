@@ -24,7 +24,7 @@ export class AuthService {
       private readonly emailService: EmailService
   ){}
 
-  public async register( registerUserDto: RegisterUserDto ){
+  public async register( registerUserDto: RegisterUserDto, file: Express.Multer.File | undefined ){
     const existUser = await User.findOne({
       where: {
         email: registerUserDto.email,

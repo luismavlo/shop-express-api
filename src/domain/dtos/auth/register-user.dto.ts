@@ -13,7 +13,7 @@ export class RegisterUserDto {
   static create (object: { [key: string]: any }): [string?, RegisterUserDto?] {
     const { firstName, surname, email, password } = object;
 
-    if (!firstName) return ['Missing firstname']
+    if (!firstName) return ['Missing firstName']
     if (!surname) return ['Missing surname']
     if (!email) return ['Missing email']
     if (!regularExps.email.test(email)) return ['Invalid email']

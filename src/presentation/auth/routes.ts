@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { AuthController } from './controller';
 import { AuthService } from '../services/auth.service';
-import {EmailService} from "../services/email.service";
-import {envs} from "../../config";
+import { EmailService } from "../services/email.service";
+import { envs } from "../../config";
 import { AuthMiddleware } from '../middlewares/auth.middleware';
+import { uploadSingle } from '../../config/upload-files.adapter';
 
 
 export class AuthRoutes {
@@ -22,7 +23,7 @@ export class AuthRoutes {
     const controller = new AuthController(authService)
 
     router.post('/login', controller.login)
-    router.post('/register', controller.register)
+    router.post('/register', uploadSingle("avatar") ,controller.register)
 
     router.get('/validate-email/:token', controller.validateEmail)
 
@@ -32,4 +33,15 @@ export class AuthRoutes {
   }
 
 }
+//enviar datos del frontend al servidor en formato formdata para subir imagenes
+// const createUser = (data) => {
+
+//   const info = new FormData()
+//   info.append('firstname', data.firstname)
+//   info.append('surname', data.surname)
+//   info.append('avatar', data.avatar)
+
+//   axios.post('/pepitoperez', info)
+
+// }
 

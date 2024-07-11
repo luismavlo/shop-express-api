@@ -71,6 +71,14 @@ export class User extends BaseEntity {
   emailValidated: boolean
 
   @Column({
+    type: 'varchar',
+    nullable: true,
+    default: 'https://cdn-icons-png.flaticon.com/512/6326/6326055.png',
+    length: 255
+  })
+  avatar: string;
+
+  @Column({
     type: 'enum',
     enum: Status,
     default: Status.ACTIVE

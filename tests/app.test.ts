@@ -10,7 +10,7 @@ Matchers: Jest proporciona diferentes matchers (manejadores) que nos permiten ha
 
 El término AAA (Arrange, Act, Assert) (preparar, actuar, asegurar) es un patrón común utilizado en las pruebas unitarias para estructurar el código de prueba de manera clara y legible. Vamos a desglosar el concepto y aplicarlo a las pruebas que has proporcionado.
 */
-import { sum, isEven } from '../src/app';
+import { sum, isEven, divide, multiply, concatenate } from '../src/app';
 
 describe('Testing App.ts', () => {
 
@@ -52,3 +52,100 @@ describe('Testing App.ts', () => {
   })
 
 })
+
+
+describe('Testing divide function', () => {
+  
+  test('divides 6/2 should return 3', () => {
+    const a = 6;
+    const b = 2;
+    const expected = 3;
+
+    const result = divide(a, b)
+
+    expect(result).toBe(expected)
+  })
+
+  test('divides -6/2 should return -3', () => {
+    const a = -6;
+    const b = 2;
+    const expected = -3;
+
+    const result = divide(a, b)
+
+    expect(result).toBe(expected)
+  })
+
+  test('throws an error when dividing by zero', () => {
+    // const a = 6;
+    // const b = 0;
+
+    // const result = divide(a, b)
+
+    // expect(result).toBe('Cannot divide by zero')
+
+    expect(() => divide(6, 0)).toThrow('Cannot divide by zero')
+
+  })
+
+})
+
+
+describe('Testing multiply function', () => {
+
+  test('multiplies 2 * 3 should return 6', () => {
+    const a = 2;
+    const b = 3;
+
+    const result = multiply(a, b);
+
+    expect(result).toBe(6)
+  })
+
+  test('multiplies -2 * 3 should return -6', () => {
+    const a = -2;
+    const b = 3;
+
+    const result = multiply(a, b);
+
+    expect(result).toBe(-6)
+  })
+
+  test('multiplies 10 * 0 should return 0', () => {
+    const a = 10;
+    const b = 0;
+
+    const result = multiply(a, b);
+
+    expect(result).toBe(0)
+  })
+
+})
+
+
+describe('Testing concatenate function', () => {
+
+  // prueba para 2 palabras 
+  test('concatenates "hello" and " world" should return "hello world"', () => {
+    const str1 = 'hello';
+    const str2 = ' world';
+    const expected = 'hello world';
+
+    const result = concatenate(str1, str2);
+
+    expect(result).toBe(expected)
+  })
+
+  //  un numero y un string
+  test('should return a throw Error if the first argument is not a string', () => {
+    expect(() => concatenate(1, 'world')).toThrow('Both arguments must be strings')
+  })
+
+  //  un string y un numero
+  test('should return a throw Error if the second argument is not a string', () => {
+    expect(() => concatenate("hello", 3)).toThrow('Both arguments must be strings')
+  })
+
+})
+
+describe('Testing isPrime function', () => {})

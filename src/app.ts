@@ -46,3 +46,36 @@ export function divide(a: number, b: number){
   }
   return a / b;
 }
+
+export function multiply(a: number, b: number){
+  return a * b;
+}
+
+export function concatenate(str1: any, str2: any){
+  if(typeof str1 !== 'string' || typeof str2 !== 'string'){
+    throw new Error('Both arguments must be strings')
+  }
+
+  return str1 + str2;
+}
+
+export function isPrime(number: any){
+  if(typeof number !== 'number'){
+    throw new Error('The argument must be a number')
+  }
+
+  if(number <= 1){
+    throw new Error('The argument must be greater than 1')
+  }
+
+  if(!Number.isInteger(number)){
+    throw new Error('The argument must be an integer')
+  }
+
+  for(let i = 2; i < number; i++ ){
+    if( number % i === 0){
+      return false;
+    }
+  }
+  return true;
+}

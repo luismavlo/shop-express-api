@@ -10,7 +10,7 @@ Matchers: Jest proporciona diferentes matchers (manejadores) que nos permiten ha
 
 El término AAA (Arrange, Act, Assert) (preparar, actuar, asegurar) es un patrón común utilizado en las pruebas unitarias para estructurar el código de prueba de manera clara y legible. Vamos a desglosar el concepto y aplicarlo a las pruebas que has proporcionado.
 */
-import { sum, isEven, divide, multiply, concatenate } from '../src/app';
+import { sum, isEven, divide, multiply, concatenate, isPrime } from '../src/app';
 
 describe('Testing App.ts', () => {
 
@@ -148,4 +148,24 @@ describe('Testing concatenate function', () => {
 
 })
 
-describe('Testing isPrime function', () => {})
+describe('Testing isPrime function', () => {
+  test('should return true for prime number 7', () => {
+    expect(isPrime(7)).toBe(true)
+  })
+
+  test('should return false for non-prime number 8', () => {
+    expect(isPrime(8)).toBeFalsy()
+  })
+
+  test('throws an error for input less than or equal to 1', () => {
+    expect(() => isPrime(1)).toThrow('The argument must be greater than 1')
+  })
+
+  test('throws an error for input not a number', () => {
+    expect(() => isPrime('seven')).toThrow('The argument must be a number')
+  })
+
+  test('should return throw error for non-integer input', () => {
+    expect(() => isPrime(4.5)).toThrow('The argument must be an integer')
+  }) 
+})

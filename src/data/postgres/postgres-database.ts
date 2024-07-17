@@ -25,9 +25,9 @@ export class PostgresDatabase {
       database: options.database,
       entities: [Videogame, User, Purchase],
       synchronize: true,
-      ssl: {
-        rejectUnauthorized: false,
-      }
+      // ssl: {
+      //   rejectUnauthorized: false,
+      // }
     })
   }
 

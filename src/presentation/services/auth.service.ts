@@ -59,8 +59,11 @@ export class AuthService {
       if( !token ) throw CustomError.internalServer('Error while creating JWT')
 
       return {
-        //token,
-        user,
+        id: user.id,
+        firstName: user.first_name,
+        surname: user.surname,
+        email: user.email,
+        role: user.role,
       }
 
     } catch ( error: any ) {

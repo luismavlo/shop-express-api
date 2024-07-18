@@ -38,6 +38,13 @@ describe('AUTH route testing', () => {
     })
     if( user ) await user.remove();
 
+    const user2 = await User.findOne({
+      where: {
+        email: 'luis@gmail.com'
+      }
+    })
+    if( user2 ) await user2.remove();
+
   })
 
   describe('Test login user', () => {
@@ -95,6 +102,31 @@ describe('AUTH route testing', () => {
 
   describe('Test register user', () => {
     
+    //van a crearse un test que sirva para validar que se pueda registrar un usuario
+    test('should register user and send status 200', async() => {
+      //1. crear un objeto con la informacion de un usuario
+      const user = {
+        firstName: 'luis',
+        surname: 'avendaño',
+        email: "luis@gmail.com",
+        password: 'Pass12345*',
+      }
+      //2. hacer la peticion con supertest
+      const { body } = await request( testServer.app )
+        .post('/api/v1/auth/register')
+        .send(user) 
+        .expect(200)
+        //3. deberan validar que la respuesta del body solo envie un objeto con la siguiente informacion: id, firstName, surname, email, role y en caso de que no devuelva esta informacion, deberan corregir el registro de usuario para que devuelva lo que se espera.
+
+      expect( body ).toEqual({
+        id: expect.any(Number),
+        firstName: user.firstName,
+        surname: user.surname,
+        email: user.email,
+        role: 'CLIENT',
+      })
+    })
+
   })
   
 })

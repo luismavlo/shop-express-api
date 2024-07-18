@@ -8,6 +8,7 @@ import { PostgresDatabase } from '../../../src/data';
 
 describe('AUTH route testing', () => {
   let userCreated: User;
+  let token: string;
 
   beforeAll(async() => {
     await testServer.start();
@@ -53,6 +54,8 @@ describe('AUTH route testing', () => {
         .post('/api/v1/auth/login')
         .send({email: 'userprueba@gmail.com', password: '123456'})
         .expect(200)
+      
+      token = body.token;
   
       expect( body ).toEqual({
         token: expect.any(String),
@@ -122,6 +125,18 @@ describe('AUTH route testing', () => {
 
     })
 
+  })
+
+  describe('testing validate profile route', () => {
+    test('should return 200 status', async() => {
+      const { body } = await request( testServer.app )
+        .get('/api/v1/auth/profile')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(200)
+
+      console.log(body)
+      
+    })
   })
 
 })

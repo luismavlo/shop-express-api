@@ -160,9 +160,24 @@ describe('AUTH route testing', () => {
 
     // van a crearse un test para el getProfile, y si no envian un token, deberan devolver un 401
     // y deberan esperar un objeto como este: {"message": "No token provided"} 
+    test('should return 401 status error when execute getProfile without token', async() => {
+      const { body } = await request( testServer.app)
+        .get('/api/v1/auth/profile')
+        .expect(401)
+
+      expect( body ).toEqual({message: "No token provided"})
+    })
 
     // van a crearse otra prueba y si el token ha expirado o no es valido, deberan devolver un 401
     // y el body esperaran "message": "Invalid token"
+    test('should return 401 status error when token is invalid', async() => {
+      const { body } = await request( testServer.app)
+        .get('/api/v1/auth/profile')
+        .set('Authorization', `Bearer dahdahsdhasdhahsdh`)
+        .expect(401)
+      
+      expect( body ).toEqual({message: "Invalid token"})
+    })
   })
   
 })

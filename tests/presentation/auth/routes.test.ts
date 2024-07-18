@@ -8,6 +8,7 @@ import request from 'supertest'
 describe('AUTH route testing', () => {
 
   let userCreated: User;
+  let token: string;
 
   beforeAll(async () => {
     await testServer.start()
@@ -55,6 +56,8 @@ describe('AUTH route testing', () => {
         .post('/api/v1/auth/login')
         .send({email: 'userprueba@gmail.com', password: 'pass123456*'})
         .expect(200)
+
+      token = body.token;
       
       expect( body ).toEqual({
         token: expect.any(String),
@@ -127,6 +130,39 @@ describe('AUTH route testing', () => {
       })
     })
 
+    //van a probar que si no se envia la data al endpoint, register debe devolver un 422
+    test('should return 422 status error when register user without data', async() => {
+      await request( testServer.app )
+        .post('/api/v1/auth/register')
+        .send()
+        .expect(422)
+    })
+
+  })
+
+  describe('Test get user profile', () => {
+    //van a probar el endpoint de getProfile deberian esperar un 200, y deberian esperar el perfil del usuario con la informacion: id, firstName, surname, email, role
+
+    test('should return user data when execute getProfile', async() => {
+      const { body } = await request( testServer.app)
+        .get('/api/v1/auth/profile')
+        .set('Authorization', `Bearer ${token}`)
+        .expect(200)
+
+      expect( body ).toEqual({
+        id: expect.any(Number),
+        firstName: userCreated.first_name,
+        surname: userCreated.surname,
+        email: userCreated.email,
+        role: userCreated.role,
+      })
+    })
+
+    // van a crearse un test para el getProfile, y si no envian un token, deberan devolver un 401
+    // y deberan esperar un objeto como este: {"message": "No token provided"} 
+
+    // van a crearse otra prueba y si el token ha expirado o no es valido, deberan devolver un 401
+    // y el body esperaran "message": "Invalid token"
   })
   
 })

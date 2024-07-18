@@ -48,7 +48,7 @@ export class AuthController {
   getProfile = (req: Request, res: Response) => {
     const { id } = req.body.sessionUser;
 
-    this.authService.getProfile(+id)
+    this.authService.getProfileForRoutes(+id)
         .then(data => res.status(200).json(data))
         .catch(error => this.handleError(error, res))
   }

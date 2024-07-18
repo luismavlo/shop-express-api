@@ -169,4 +169,23 @@ export class AuthService {
     return user;
   }
 
+  public async getProfileForRoutes(id: number){
+    const user = await User.findOne({
+      where: {
+        id: id,
+        status: Status.ACTIVE
+      },
+    })
+
+    if(!user) throw CustomError.notFound('User not found')
+
+    return {
+      id: user.id,
+      firstName: user.first_name,
+      surname: user.surname,
+      email: user.email,
+      role: user.role,
+    }
+  }
+
 }
